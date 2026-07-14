@@ -32,6 +32,24 @@ CSS tokens fall back to browser defaults and the pages render unstyled (white
 background, serif text). Inter is pulled from Google Fonts over the network, so
 the exact typeface needs a connection; colors and layout work offline.
 
+## Media assets
+
+Some pages reference media that also lives beside the `.dc.html` files:
+
+- `demo.gif` — a demo shown on `TmuxSessionsRestore.dc.html`.
+
+Like the theme files, these must stay next to the pages (the page loads them by
+relative path). If you move or rename a page, keep its assets with it.
+
+## Editing a page's markup
+
+The page HTML isn't plain HTML in the file — it's stored JSON-encoded inside a
+`<script type="__bundler/template">` block in each bundle, and the slash in
+every `</` is written as a JSON unicode escape (so inline close-tags like
+`</div>` can't break out of that surrounding script tag). If you hand-edit the
+block, keep it valid JSON and re-apply that slash-escaping, or the bundle fails
+to unpack ("Unterminated string in JSON").
+
 ## Viewing the pages
 
 ### Quick look (open a file directly)
