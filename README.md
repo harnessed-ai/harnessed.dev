@@ -1,4 +1,4 @@
-# toolsPluginsSite
+# Website
 
 Website for tools and plugins — a landing page plus dedicated pages for two
 tmux plugins (`tmux-ai-sessions-restore` and `tmux-nudge`), styled with the
