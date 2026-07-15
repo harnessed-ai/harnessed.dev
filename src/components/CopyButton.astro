@@ -1,0 +1,23 @@
+---
+// "Copy" button for an install snippet. Copies `command` to the clipboard and
+// flips its label to "Copied ✓" for 1.4s. The command travels in a data
+// attribute so the (single, bundled) script below can wire every button.
+// Props:
+//   command — the exact text to copy
+const { command } = Astro.props;
+---
+<button type="button" class="btn btn-ghost" data-copy-install={command} style="margin-top: 10px; white-space: nowrap;">Copy</button>
+
+<script>
+  document.querySelectorAll('button[data-copy-install]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cmd = btn.getAttribute('data-copy-install') || '';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cmd).catch(() => {});
+      }
+      btn.textContent = 'Copied ✓';
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { btn.textContent = 'Copy'; }, 1400);
+    });
+  });
+</script>

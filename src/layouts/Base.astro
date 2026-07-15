@@ -1,0 +1,32 @@
+---
+// Page shell: <head>, Nocturne theme, the gradient background, the centered
+// content container, plus the shared Nav and Footer. Pages pass their chrome
+// via props and put their sections in the default slot.
+//
+// Props:
+//   title       — <title> text
+//   current     — active nav link: 'home' | 'sessions' | 'nudge'
+//   githubHref  — GitHub button target in the nav
+//   footerLinks — array of { href, label } for the footer
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+const { title, current, githubHref, footerLinks } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div style="background: radial-gradient(1200px 700px at 84% -160px, color-mix(in srgb, var(--color-accent-900) 75%, transparent), transparent 60%), radial-gradient(1100px 800px at -10% 100%, color-mix(in srgb, black 30%, transparent), transparent 55%), var(--color-bg); min-height: 100%; color: var(--color-text); font-family: var(--font-body);">
+    <Nav current={current} githubHref={githubHref} />
+    <div style="max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
+      <slot />
+      <Footer links={footerLinks} />
+    </div>
+  </div>
+</body>
+</html>

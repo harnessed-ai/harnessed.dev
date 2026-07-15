@@ -1,0 +1,20 @@
+---
+// Top navigation, shared by every page.
+// Props:
+//   current    — which link is active: 'home' | 'sessions' | 'nudge'
+//   githubHref — where the GitHub button points (varies per page)
+const { current, githubHref } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/sessions-restore', label: 'Sessions Restore', key: 'sessions' },
+  { href: '/nudge', label: 'Nudge', key: 'nudge' },
+];
+---
+<nav class="nav" style="padding-inline: clamp(20px, 5vw, 72px);">
+  <span class="nav-brand" style="white-space: nowrap;">tmux · ai-ops</span>
+  {links.map((l) => (
+    <a href={l.href} aria-current={current === l.key ? 'location' : undefined}>{l.label}</a>
+  ))}
+  <a href={githubHref} target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">GitHub ↗</a>
+</nav>

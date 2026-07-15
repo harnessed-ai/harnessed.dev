@@ -1,0 +1,19 @@
+---
+// Page footer, shared by every page.
+// Props:
+//   links — array of { href, label }. The home page lists both plugins;
+//           each plugin page lists just its own. The ` ↗` is appended here.
+const { links } = Astro.props;
+---
+<footer style="padding: 32px 0 48px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+  <span>MIT licensed · bmohan01</span>
+  {links.length > 1 ? (
+    <span style="display: flex; gap: 20px;">
+      {links.map((l) => (
+        <a href={l.href} target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">{l.label} ↗</a>
+      ))}
+    </span>
+  ) : (
+    <a href={links[0].href} target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">{links[0].label} ↗</a>
+  )}
+</footer>

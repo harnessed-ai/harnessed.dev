@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PluginCard from '../components/PluginCard.astro';
+
+const footerLinks = [
+  { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
+  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+];
+---
+<Base
+  title="tmux · ai-ops — plugins for AI coding agents"
+  current="home"
+  githubHref="https://github.com/bmohan01"
+  footerLinks={footerLinks}
+>
+  <section style="padding: 96px 0 72px;">
+    <Eyebrow>TMUX Plugins</Eyebrow>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(40px, 5.6vw, 76px); line-height: 1.08; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em;">
+      <span style="display: block;">Panes that remember.</span>
+      <span style="display: block;">Panes that get your attention.</span>
+    </h1>
+    <p style="font-size: 17px; line-height: 1.65; max-width: 58ch; margin: 24px 0 0; color: var(--color-text);">
+      Two small tmux plugins for engineers running AI coding agents in panes. <strong style="font-weight: 600; color: var(--color-text);">tmux-ai-sessions-restore</strong> brings your Claude Code and Kiro CLI conversations back after a reboot — not just the layout. <strong style="font-weight: 600; color: var(--color-text);">tmux-nudge</strong> blinks the one pane that needs a human next, whether that's an agent, a build, or a script.
+    </p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 64px 0;">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+      <PluginCard
+        href="/sessions-restore"
+        kicker="tmux-ai-sessions-restore"
+        title="Resume the conversation, not just the layout"
+        body="Makes claude and kiro-cli chat relaunch resumed, in the same pane, where you left off — after tmux-resurrect brings the pane back."
+      />
+      <PluginCard
+        href="/nudge"
+        kicker="tmux-nudge"
+        title="The pane that needs you, blinking"
+        body="Blinks a label on the pane and its status-bar entry the moment it needs a human — an AI agent, a finished build, or anything else."
+        blink
+      />
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0 80px;">
+    <Eyebrow>Install</Eyebrow>
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 28px; margin: 0 0 32px;">Both plugins install through TPM</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+      <div>
+        <h3 style="font-size: 16px; margin: 0 0 10px; color: color-mix(in srgb, var(--color-text) 85%, transparent);">tmux-ai-sessions-restore</h3>
+        <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text);">set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'bmohan01/tmux-ai-sessions-restore'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+run '~/.tmux/plugins/tpm/tpm'</pre>
+        <a href="/sessions-restore" class="btn btn-ghost" style="margin-top: 10px; white-space: nowrap;">Full install guide →</a>
+      </div>
+      <div>
+        <h3 style="font-size: 16px; margin: 0 0 10px; color: color-mix(in srgb, var(--color-text) 85%, transparent);">tmux-nudge</h3>
+        <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text);">set -g @plugin 'bmohan01/tmux-nudge'
+
+# then: prefix + I</pre>
+        <a href="/nudge" class="btn btn-ghost" style="margin-top: 10px; white-space: nowrap;">Full install guide →</a>
+      </div>
+    </div>
+  </section>
+</Base>

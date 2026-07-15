@@ -1,0 +1,28 @@
+---
+// A linked plugin card on the home page.
+// Props:
+//   href, kicker, title, body — content
+//   blink                     — show the blinking dot + amber kicker (the nudge card)
+const { href, kicker, title, body, blink = false } = Astro.props;
+---
+<a href={href} style="display: block; text-decoration: none; color: inherit;">
+  <div class="card elev-md tk-card" style="height: 100%; padding: 28px; gap: 12px;">
+    {blink ? (
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #f5a623; animation: tk-blink 1.6s ease-in-out infinite;"></span>
+        <p class="card-kicker" style="font-size: 11px; margin: 0; white-space: nowrap; color: #d4c84a; animation: tk-blink 1.6s ease-in-out infinite;">{kicker}</p>
+      </div>
+    ) : (
+      <p class="card-kicker" style="font-size: 11px; white-space: nowrap;">{kicker}</p>
+    )}
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; margin: 0; letter-spacing: -0.01em;">{title}</h2>
+    <p class="card-body" style="font-size: 15px; opacity: 0.85;">{body}</p>
+    <span style="color: var(--color-accent); font-size: 14px; margin-top: auto; white-space: nowrap;">Learn more →</span>
+  </div>
+</a>
+
+<style is:global>
+  @keyframes tk-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .tk-card { transition: outline-color 0.18s ease; outline: 1px solid transparent; outline-offset: -1px; }
+  .tk-card:hover { outline-color: #f5a623; }
+</style>
