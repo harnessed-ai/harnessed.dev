@@ -87,9 +87,25 @@ The two plugin pages have a "Copy" button that copies the install snippet to the
 clipboard (`CopyButton.astro`). It's the only client-side JavaScript on the
 site; Astro bundles it once and ships nothing else.
 
-## Deploying
+## Deploying (GitHub Pages)
 
-`npm run build` emits a fully static `dist/` — host it anywhere that serves
-static files (GitHub Pages, Netlify, Cloudflare Pages, etc.). The config assumes
-the site is served from the domain root (`https://harnessed.dev`); if you ever
-deploy under a sub-path, set `base` in `astro.config.mjs`.
+The site deploys to GitHub Pages at the project URL
+**https://harnessed-ai.github.io/harnessed.dev/**. Because that's a sub-path,
+`astro.config.mjs` sets `base: '/harnessed.dev'`, and all internal links/assets
+are built from `import.meta.env.BASE_URL` so they resolve under it. Don't
+hard-code root-absolute paths like `/styles.css` — use the `base` pattern the
+components already follow, or they'll 404 in production.
+
+Pages needs a build step, so deploy via **GitHub Actions** (not "deploy from a
+branch", which serves files as-is). One-time setup, all in the GitHub UI:
+
+1. Repo → **Settings → Pages → Build and deployment → Source** → **GitHub Actions**.
+2. Choose the suggested **Astro** workflow (“Deploy an Astro site to Pages”) →
+   **Configure** → **Commit** the generated workflow to `main`.
+3. Every push to `main` then builds and publishes automatically (watch the
+   **Actions** tab).
+
+`dist/` is git-ignored and built by the Action — don't commit it.
+
+To move to a root custom domain later: set `base: '/'` and `site` to the domain
+in `astro.config.mjs`, and add a `public/CNAME` file containing the domain.
