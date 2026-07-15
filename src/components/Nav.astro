@@ -5,10 +5,11 @@
 //   githubHref — where the GitHub button points (varies per page)
 const { current, githubHref } = Astro.props;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 const links = [
-  { href: '/', label: 'Home', key: 'home' },
-  { href: '/sessions-restore', label: 'Sessions Restore', key: 'sessions' },
-  { href: '/nudge', label: 'Nudge', key: 'nudge' },
+  { href: `${base}/`, label: 'Home', key: 'home' },
+  { href: `${base}/sessions-restore`, label: 'Sessions Restore', key: 'sessions' },
+  { href: `${base}/nudge`, label: 'Nudge', key: 'nudge' },
 ];
 ---
 <nav class="nav" style="padding-inline: clamp(20px, 5vw, 72px);">

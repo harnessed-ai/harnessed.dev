@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import CopyButton from '../components/CopyButton.astro';
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
+
 const installCmd = `set -g @continuum-restore 'on'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'bmohan01/tmux-ai-sessions-restore'
@@ -31,7 +33,7 @@ const footerLinks = [
       <a href="#install" class="btn btn-secondary" style="white-space: nowrap;">Install</a>
     </div>
     <figure style="margin: 44px 0 0;">
-      <img src="/demo.gif" alt="tmux-ai-sessions-restore relaunching a Claude Code conversation in a restored pane, resumed where it left off" loading="lazy" width="1000" height="643" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+      <img src={`${base}/demo.gif`} alt="tmux-ai-sessions-restore relaunching a Claude Code conversation in a restored pane, resumed where it left off" loading="lazy" width="1000" height="643" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
       <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">A restored pane relaunching the conversation where you left off.</figcaption>
     </figure>
   </section>
