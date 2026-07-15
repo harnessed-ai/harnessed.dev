@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tmux · ai-ops — plugins for AI coding agents</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+@keyframes tk-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.tk-card { transition: outline-color 0.18s ease; outline: 1px solid transparent; outline-offset: -1px; }
+.tk-card:hover { outline-color: #f5a623; }
+</style>
+</head>
+<body>
+<div style="background: radial-gradient(1200px 700px at 84% -160px, color-mix(in srgb, var(--color-accent-900) 75%, transparent), transparent 60%), radial-gradient(1100px 800px at -10% 100%, color-mix(in srgb, black 30%, transparent), transparent 55%), var(--color-bg); min-height: 100%; color: var(--color-text); font-family: var(--font-body);">
+
+  <nav class="nav" style="padding-inline: clamp(20px, 5vw, 72px);">
+    <span class="nav-brand" style="white-space: nowrap;">tmux · ai-ops</span>
+    <a href="./index.html" aria-current="location">Home</a>
+    <a href="./sessions-restore.html">Sessions Restore</a>
+    <a href="./nudge.html">Nudge</a>
+    <a href="https://github.com/bmohan01" target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">GitHub ↗</a>
+  </nav>
+
+  <div style="max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 72px);">
+
+    <section style="padding: 96px 0 72px;">
+      <span style="position: relative; display: block; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 18px; font-feature-settings: 'tnum' 1;">
+        <span style="position: absolute; left: -64px; top: 6px; width: 44px; height: 1px; background: var(--color-accent);"></span>
+        TMUX Plugins
+      </span>
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(40px, 5.6vw, 76px); line-height: 1.08; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em;">
+        <span style="display: block;">Panes that remember.</span>
+        <span style="display: block;">Panes that get your attention.</span>
+      </h1>
+      <p style="font-size: 17px; line-height: 1.65; max-width: 58ch; margin: 24px 0 0; color: var(--color-text);">
+        Two small tmux plugins for engineers running AI coding agents in panes. <strong style="font-weight: 600; color: var(--color-text);">tmux-ai-sessions-restore</strong> brings your Claude Code and Kiro CLI conversations back after a reboot — not just the layout. <strong style="font-weight: 600; color: var(--color-text);">tmux-nudge</strong> blinks the one pane that needs a human next, whether that's an agent, a build, or a script.
+      </p>
+    </section>
+
+    <hr class="hr">
+
+    <section style="padding: 64px 0;">
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+
+        <a href="./sessions-restore.html" style="display: block; text-decoration: none; color: inherit;">
+          <div class="card elev-md tk-card" style="height: 100%; padding: 28px; gap: 12px;">
+            <p class="card-kicker" style="font-size: 11px; white-space: nowrap;">tmux-ai-sessions-restore</p>
+            <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; margin: 0; letter-spacing: -0.01em;">Resume the conversation, not just the layout</h2>
+            <p class="card-body" style="font-size: 15px; opacity: 0.85;">Makes claude and kiro-cli chat relaunch resumed, in the same pane, where you left off — after tmux-resurrect brings the pane back.</p>
+            <span style="color: var(--color-accent); font-size: 14px; margin-top: auto; white-space: nowrap;">Learn more →</span>
+          </div>
+        </a>
+
+        <a href="./nudge.html" style="display: block; text-decoration: none; color: inherit;">
+          <div class="card elev-md tk-card" style="height: 100%; padding: 28px; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: #f5a623; animation: tk-blink 1.6s ease-in-out infinite;"></span>
+              <p class="card-kicker" style="font-size: 11px; margin: 0; white-space: nowrap; color: #d4c84a; animation: tk-blink 1.6s ease-in-out infinite;">tmux-nudge</p>
+            </div>
+            <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 24px; margin: 0; letter-spacing: -0.01em;">The pane that needs you, blinking</h2>
+            <p class="card-body" style="font-size: 15px; opacity: 0.85;">Blinks a label on the pane and its status-bar entry the moment it needs a human — an AI agent, a finished build, or anything else.</p>
+            <span style="color: var(--color-accent); font-size: 14px; margin-top: auto; white-space: nowrap;">Learn more →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <section style="padding: 48px 0 80px;">
+      <span style="position: relative; display: block; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 18px;">
+        <span style="position: absolute; left: -64px; top: 6px; width: 44px; height: 1px; background: var(--color-accent);"></span>
+        Install
+      </span>
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 28px; margin: 0 0 32px;">Both plugins install through TPM</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+        <div>
+          <h3 style="font-size: 16px; margin: 0 0 10px; color: color-mix(in srgb, var(--color-text) 85%, transparent);">tmux-ai-sessions-restore</h3>
+          <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text);">set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'bmohan01/tmux-ai-sessions-restore'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+run '~/.tmux/plugins/tpm/tpm'</pre>
+          <a href="./sessions-restore.html" class="btn btn-ghost" style="margin-top: 10px; white-space: nowrap;">Full install guide →</a>
+        </div>
+        <div>
+          <h3 style="font-size: 16px; margin: 0 0 10px; color: color-mix(in srgb, var(--color-text) 85%, transparent);">tmux-nudge</h3>
+          <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text);">set -g @plugin 'bmohan01/tmux-nudge'
+
+# then: prefix + I</pre>
+          <a href="./nudge.html" class="btn btn-ghost" style="margin-top: 10px; white-space: nowrap;">Full install guide →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer style="padding: 32px 0 48px; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+      <span>MIT licensed · bmohan01</span>
+      <span style="display: flex; gap: 20px;">
+        <a href="https://github.com/bmohan01/tmux-ai-sessions-restore" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">tmux-ai-sessions-restore ↗</a>
+        <a href="https://github.com/bmohan01/tmux-nudge" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">tmux-nudge ↗</a>
+      </span>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
