@@ -1,21 +1,102 @@
 ---
-// Top navigation, shared by every page.
+// Left sidebar navigation, shared by every page. Each link wears the Nocturne
+// eyebrow treatment — an accent dash, uppercase accent text, and a chevron.
+// Collapses to a compact top bar on narrow screens.
 // Props:
-//   current    — which link is active: 'home' | 'sessions' | 'nudge'
+//   current    — which link is active: 'home' | 'tmux' | 'taxer'
 //   githubHref — where the GitHub button points (varies per page)
 const { current, githubHref } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 const links = [
   { href: `${base}/`, label: 'Home', key: 'home' },
-  { href: `${base}/sessions-restore`, label: 'Sessions Restore', key: 'sessions' },
-  { href: `${base}/nudge`, label: 'Nudge', key: 'nudge' },
+  { href: `${base}/tmux`, label: 'tmux', key: 'tmux' },
+  { href: `${base}/taxer`, label: 'Taxer', key: 'taxer' },
 ];
 ---
-<nav class="nav" style="padding-inline: clamp(20px, 5vw, 72px);">
-  <span class="nav-brand" style="white-space: nowrap;">tmux · ai-ops</span>
-  {links.map((l) => (
-    <a href={l.href} aria-current={current === l.key ? 'location' : undefined}>{l.label}</a>
-  ))}
-  <a href={githubHref} target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">GitHub ↗</a>
+<nav class="sidebar">
+  <a class="sidebar-brand" href={`${base}/`}>harnessed</a>
+  <div class="sidebar-links">
+    {links.map((l) => (
+      <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>
+        <span class="nav-dash"></span>
+        <span class="nav-text">{l.label}</span>
+        <svg class="nav-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </a>
+    ))}
+  </div>
+  <a href={githubHref} target="_blank" rel="noopener" class="btn btn-primary sidebar-github">GitHub ↗</a>
 </nav>
+
+<style>
+  .sidebar {
+    flex: none;
+    width: 232px;
+    align-self: flex-start;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 28px;
+  }
+  .sidebar-brand {
+    display: none; /* desktop: brand lives at the page top-right (Base.astro) */
+    font-family: var(--font-heading);
+    font-weight: var(--font-heading-weight);
+    font-size: 17px;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .sidebar-links { display: flex; flex-direction: column; gap: 6px; margin-top: 56px; }
+  .sidebar-links a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 0;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+  .sidebar-links a:hover,
+  .sidebar-links a[aria-current='page'] { opacity: 1; }
+
+  .nav-dash {
+    flex: none;
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.2s ease;
+  }
+  .sidebar-links a:hover .nav-dash,
+  .sidebar-links a[aria-current='page'] .nav-dash { width: 42px; }
+
+  .nav-chev { flex: none; opacity: 0.8; transition: transform 0.2s ease; }
+  .sidebar-links a:hover .nav-chev { transform: translateX(2px); }
+
+  .sidebar-github { margin-top: auto; align-self: flex-start; white-space: nowrap; }
+
+  @media (max-width: 820px) {
+    .sidebar {
+      position: static;
+      height: auto;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 14px clamp(18px, 5vw, 32px);
+      border-right: 0;
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .sidebar-brand { display: block; margin-right: auto; }
+    .sidebar-links { flex-direction: row; gap: 4px; margin-top: 0; }
+    .sidebar-links a { padding: 6px 8px; gap: 8px; opacity: 0.7; }
+    .nav-dash, .nav-chev { display: none; }
+    .sidebar-github { margin-top: 0; }
+  }
+</style>
