@@ -1,7 +1,7 @@
 ---
 // Top navigation, shared by every page.
 // Props:
-//   current    — which link is active: 'home' | 'sessions' | 'nudge'
+//   current    — which link is active: 'home' | 'sessions' | 'nudge' | 'taxer'
 //   githubHref — where the GitHub button points (varies per page)
 const { current, githubHref } = Astro.props;
 
@@ -10,10 +10,11 @@ const links = [
   { href: `${base}/`, label: 'Home', key: 'home' },
   { href: `${base}/sessions-restore`, label: 'Sessions Restore', key: 'sessions' },
   { href: `${base}/nudge`, label: 'Nudge', key: 'nudge' },
+  { href: `${base}/taxer`, label: 'Taxer', key: 'taxer' },
 ];
 ---
 <nav class="nav" style="padding-inline: clamp(20px, 5vw, 72px);">
-  <span class="nav-brand" style="white-space: nowrap;">tmux · ai-ops</span>
+  <span class="nav-brand" style="white-space: nowrap;">harnessed</span>
   {links.map((l) => (
     <a href={l.href} aria-current={current === l.key ? 'location' : undefined}>{l.label}</a>
   ))}

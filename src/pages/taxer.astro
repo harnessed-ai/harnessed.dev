@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import CopyButton from '../components/CopyButton.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
+
+const installCmd = `git clone https://github.com/bmohan01/Taxer.git
+cd Taxer && claude`;
+
+const footerLinks = [
+  { href: 'https://github.com/bmohan01/Taxer', label: 'Taxer' },
+];
+---
+<Base
+  title="Taxer"
+  current="taxer"
+  githubHref="https://github.com/bmohan01/Taxer"
+  footerLinks={footerLinks}
+>
+  <section style="padding: 72px 0 48px;">
+    <Eyebrow>Taxer</Eyebrow>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">An AI tax preparer that never sees your SSN</h1>
+    <p style="font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: var(--color-text);">
+      Taxer is a Claude Code plugin for US tax preparation — federal, plus first-pass state estimates for CA, NY, NJ, MA and IL. It helps you organize your documents, understand your situation, and compute an accurate estimate of what you owe or get back — all on your machine. Claude handles the conversation; a deterministic Python engine does every dollar of math; your PII never leaves the device unredacted.
+    </p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
+      <a href="https://github.com/bmohan01/Taxer" target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">View on GitHub ↗</a>
+      <a href="#install" class="btn btn-secondary" style="white-space: nowrap;">Install</a>
+    </div>
+    <figure style="margin: 44px 0 0;">
+      <img src={`${base}/taxer-estimate.png`} alt="Taxer's Estimate screen: a step-by-step tax pipeline with a live refund/owed sidebar and a first-pass state income tax estimate" loading="lazy" width="1300" height="1000" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+      <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">The Estimate step — the full pipeline with a live refund/owed sidebar.</figcaption>
+    </figure>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 14px;">Why</h2>
+    <p style="font-size: 15.5px; line-height: 1.65; max-width: 64ch; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
+      Consumer tax software is a black box that wants your SSN, your bank details and a subscription before it will tell you anything. Taxer inverts that: the AI you already trust for code walks you through your return locally, and the numbers come from auditable Python — not a language model guessing at arithmetic. Nothing is e-filed and nothing is uploaded; Taxer prepares, you file.
+    </p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 24px;">What you get</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px;">
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">PII never leaves</p>
+        <p class="card-body">A redactor strips 14 categories of PII — SSNs, EINs, names, addresses, account numbers — before a single token reaches the API. Amounts only are saved locally; PII is reintegrated only when a PDF is filled.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Claude drives, Python computes</p>
+        <p class="card-body">Every bracket, credit, phase-out and limit runs through pure, tested Python — never prose. The model guides; it never estimates a number.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Federal + 5 states</p>
+        <p class="card-body">Full federal return plus first-pass state income tax estimates for CA, NY, NJ, MA and IL — with capital gains, NIIT, AMT, QBI, Schedule C and Schedule E.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Drag-drop documents</p>
+        <p class="card-body">Drop a W-2, 1099, 1098, K-1 or rental statement — it's parsed, PII-redacted, and its values are one click from being applied.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">CLI or web GUI</p>
+        <p class="card-body">Run it as a Claude Code plugin in your terminal, or launch a local single-page web app over the exact same engine and data.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Traceable & backed up</p>
+        <p class="card-body">Every Form 1040 line is traced and checked against IRS rules, runs are logged for provenance, and your years export to one portable ZIP.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 10px;">How PII stays local</h2>
+    <p style="font-size: 15px; line-height: 1.65; max-width: 62ch; margin: 0 0 24px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Only redacted text — field names and dollar amounts — ever reaches the Claude API. Everything identifying stays on disk.</p>
+    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 18px 20px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; color: var(--color-text);">Raw document (PDF / image)
+      │
+   redactor  ──  SSN → [SSN], name → [SELF], address → [HOME_ADDRESS], …
+      │
+   redacted text  ───────────  only this goes to the Claude API
+      │
+   Claude extracts field name + amount  →  you confirm
+      │
+   saved locally (amounts only)  →  /export reintegrates PII → filled PDF</pre>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 24px;">A look inside</h2>
+    <div style="display: grid; gap: 32px;">
+      <figure style="margin: 0;">
+        <img src={`${base}/taxer-review.png`} alt="Taxer's Review screen tracing every Form 1040 line and running IRS rule checks" loading="lazy" width="1300" height="2292" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+        <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Review — traces every Form 1040 line and runs IRS rule checks: phase-outs, the SALT cap, wash sales, safe harbor, passive-loss limitation and more.</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src={`${base}/taxer-rental.png`} alt="Taxer's Rental screen with per-property income and expenses and the Form 8582 passive-loss limitation applied" loading="lazy" width="1300" height="1167" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+        <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Rental (Schedule E) — per-property income and expenses, with the Form 8582 passive-activity-loss limitation applied automatically.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="install" style="padding: 48px 0 80px;">
+    <Eyebrow>Install</Eyebrow>
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 18px;">Clone and run</h2>
+    <p style="font-size: 15px; line-height: 1.65; margin: 0 0 16px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 62ch;">Taxer runs as a Claude Code plugin. On first launch it creates a virtualenv and installs its dependencies for you.</p>
+    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: var(--color-text); max-width: 560px;">git clone https://github.com/bmohan01/Taxer.git
+cd Taxer &amp;&amp; claude</pre>
+    <CopyButton command={installCmd} />
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 32px;">
+      <div class="card">
+        <p class="card-kicker">Prefer a GUI?</p>
+        <p class="card-body">Run <code style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em;">./web.sh</code> for a local web app at 127.0.0.1:8770 — same engine, same data, an 8-step visual flow from Documents to Export. It binds to loopback only and never e-files.</p>
+      </div>
+      <div class="card">
+        <p class="card-kicker">Not a CPA</p>
+        <p class="card-body">Taxer is a preparation assistant, not a licensed tax advisor. It helps you prepare and understand your return; for complex situations, consult a CPA or enrolled agent.</p>
+      </div>
+    </div>
+  </section>
+</Base>
