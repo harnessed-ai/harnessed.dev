@@ -1,0 +1,142 @@
+---
+// One sidebar entry, rendered recursively through <Astro.self /> so the nav
+// tree can be any depth. `level` drives typography and indentation:
+//   1 — HOME / PROJECTS : 22px uppercase, carrying the Nocturne accent dash
+//   2 — tmux / Taxer    : 15px, hung off a hairline dropped from that dash
+//   3 — restore / nudge : 13px, hung off a second, quieter hairline
+// Children render only while you are inside that branch, so the resting
+// sidebar stays two lines and unfolds as you descend.
+//
+// Props:
+//   link  — { href, label, key, children? }
+//   level — depth, starting at 1
+//   path  — the remaining segments of the active path, e.g. ['tmux','nudge']
+const { link, level, path = [] } = Astro.props;
+
+const active = path[0] === link.key;
+const rest = active ? path.slice(1) : [];
+const current = active && rest.length === 0;
+const open = active && !!link.children;
+const size = level === 1 ? 15 : 12;
+---
+<div class="nav-group">
+  <a
+    class="nav-link"
+    data-level={level}
+    href={link.href}
+    aria-current={current ? 'page' : undefined}
+    data-state={active ? (current ? 'current' : 'ancestor') : undefined}
+  >
+    {level === 1 && <span class="nav-dash"></span>}
+    <span class="nav-text">{link.label}</span>
+    {level < 3 && (
+      <svg class="nav-chev" class:list={{ 'is-open': open }} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    )}
+  </a>
+  {open && (
+    <div class="nav-children" data-level={level + 1}>
+      {link.children.map((c) => <Astro.self link={c} level={level + 1} path={rest} />)}
+    </div>
+  )}
+</div>
+
+<style>
+  .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+
+  /* Typography per depth. These come before the state rules below so that an
+     active link's opacity wins over its level's resting opacity. */
+  .nav-link[data-level='1'] {
+    gap: 14px;
+    padding: 9px 0;
+    font-size: 20px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .nav-link[data-level='2'] {
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    opacity: 0.55;
+  }
+  .nav-link[data-level='3'] {
+    padding: 5px 0;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    opacity: 0.5;
+  }
+
+  .nav-link:hover { opacity: 1; }
+  /* Full brightness on the page you are on; a step down on the branch leading
+     to it, so the lit descendant reads as the deeper position. */
+  .nav-link[data-state='current'] { opacity: 1; }
+  .nav-link[data-state='ancestor'] { opacity: 0.8; }
+
+  .nav-dash {
+    flex: none;
+    width: 28px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.2s ease;
+  }
+  .nav-link:hover .nav-dash,
+  .nav-link[data-state] .nav-dash { width: 42px; }
+
+  .nav-chev { flex: none; opacity: 0.8; transition: transform 0.2s ease; }
+  .nav-link:hover .nav-chev { transform: translateX(2px); }
+  /* Points down while the branch is unfolded. */
+  .nav-chev.is-open,
+  .nav-link:hover .nav-chev.is-open { transform: rotate(90deg); }
+
+  /* Each level hangs off a hairline. The level-1 dash is 42px wide whenever it
+     has children showing, so its hairline sits at the 21px midpoint and 35px of
+     padding lands level-2 text at 56px — flush under the level-1 label. Level 3
+     adds 28px more, landing at 84px. */
+  .nav-children { display: flex; flex-direction: column; }
+  .nav-children[data-level='2'] {
+    margin: 2px 0 6px 21px;
+    padding-left: 35px;
+    border-left: 1px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+  .nav-children[data-level='3'] {
+    margin: 1px 0 4px 7px;
+    padding-left: 21px;
+    border-left: 1px solid color-mix(in srgb, var(--color-accent) 16%, transparent);
+  }
+
+  /* A short tick reaching out from the hairline marks the page you are on. */
+  .nav-link[data-level='2'][data-state='current']::before,
+  .nav-link[data-level='3'][data-state='current']::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    height: 1px;
+    background: currentColor;
+  }
+  .nav-link[data-level='2'][data-state='current']::before { left: -35px; width: 18px; }
+  .nav-link[data-level='3'][data-state='current']::before { left: -21px; width: 12px; }
+
+  .nav-children > .nav-group { animation: nav-in 0.28s ease both; }
+  .nav-children > .nav-group:nth-child(2) { animation-delay: 0.05s; }
+  @keyframes nav-in {
+    from { opacity: 0; transform: translateX(-6px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-children > .nav-group { animation: none; }
+  }
+
+  @media (max-width: 820px) {
+    .nav-link[data-level='1'] { padding: 6px 8px; gap: 8px; opacity: 0.7; }
+    .nav-dash, .nav-chev { display: none; }
+    /* No room in the top bar — the section pages carry this on mobile. */
+    .nav-children { display: none; }
+  }
+</style>

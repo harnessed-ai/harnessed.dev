@@ -1,29 +1,43 @@
 ---
-// Left sidebar navigation, shared by every page. Each link wears the Nocturne
-// eyebrow treatment — an accent dash, uppercase accent text, and a chevron.
-// Collapses to a compact top bar on narrow screens.
+// Left sidebar navigation, shared by every page. It owns the sidebar chrome —
+// brand, GitHub button, the narrow-screen top bar — and hands the link tree to
+// NavLink, which renders itself recursively and carries the link styling.
 // Props:
-//   current    — which link is active: 'home' | 'tmux' | 'taxer'
+//   current    — slash-separated path of the active link, matched against the
+//                `key` at each level: 'home', 'projects/tmux',
+//                'projects/tmux/nudge'
 //   githubHref — where the GitHub button points (varies per page)
+import NavLink from './NavLink.astro';
 const { current, githubHref } = Astro.props;
+const path = String(current ?? '').split('/');
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 const links = [
   { href: `${base}/`, label: 'Home', key: 'home' },
-  { href: `${base}/tmux`, label: 'tmux', key: 'tmux' },
-  { href: `${base}/taxer`, label: 'Taxer', key: 'taxer' },
+  {
+    href: `${base}/projects`,
+    label: 'Projects',
+    key: 'projects',
+    children: [
+      {
+        href: `${base}/tmux`,
+        label: 'TMUX',
+        key: 'tmux',
+        children: [
+          // Short labels: the full plugin names do not fit at this depth.
+          { href: `${base}/sessions-restore`, label: 'Restore', key: 'sessions-restore' },
+          { href: `${base}/nudge`, label: 'Nudge', key: 'nudge' },
+        ],
+      },
+      { href: `${base}/taxer`, label: 'TAXER', key: 'taxer' },
+    ],
+  },
 ];
 ---
 <nav class="sidebar">
   <a class="sidebar-brand" href={`${base}/`}>harnessed</a>
   <div class="sidebar-links">
-    {links.map((l) => (
-      <a href={l.href} aria-current={current === l.key ? 'page' : undefined}>
-        <span class="nav-dash"></span>
-        <span class="nav-text">{l.label}</span>
-        <svg class="nav-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg>
-      </a>
-    ))}
+    {links.map((l) => <NavLink link={l} level={1} path={path} />)}
   </div>
   <a href={githubHref} target="_blank" rel="noopener" class="btn btn-primary sidebar-github">GitHub ↗</a>
 </nav>
@@ -31,7 +45,9 @@ const links = [
 <style>
   .sidebar {
     flex: none;
-    width: 232px;
+    /* Wide enough for the longest level-1 label ("PROJECTS") with its dash and
+       chevron; that row is what sets this number. */
+    width: 264px;
     align-self: flex-start;
     position: sticky;
     top: 0;
@@ -50,34 +66,6 @@ const links = [
   }
 
   .sidebar-links { display: flex; flex-direction: column; gap: 6px; margin-top: 56px; }
-  .sidebar-links a {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 9px 0;
-    color: var(--color-accent);
-    text-decoration: none;
-    font-size: 22px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    transition: opacity 0.15s ease;
-  }
-  .sidebar-links a:hover,
-  .sidebar-links a[aria-current='page'] { opacity: 1; }
-
-  .nav-dash {
-    flex: none;
-    width: 28px;
-    height: 1px;
-    background: currentColor;
-    transition: width 0.2s ease;
-  }
-  .sidebar-links a:hover .nav-dash,
-  .sidebar-links a[aria-current='page'] .nav-dash { width: 42px; }
-
-  .nav-chev { flex: none; opacity: 0.8; transition: transform 0.2s ease; }
-  .sidebar-links a:hover .nav-chev { transform: translateX(2px); }
 
   .sidebar-github { margin-top: auto; align-self: flex-start; white-space: nowrap; }
 
@@ -95,8 +83,6 @@ const links = [
     }
     .sidebar-brand { display: block; margin-right: auto; }
     .sidebar-links { flex-direction: row; gap: 4px; margin-top: 0; }
-    .sidebar-links a { padding: 6px 8px; gap: 8px; opacity: 0.7; }
-    .nav-dash, .nav-chev { display: none; }
     .sidebar-github { margin-top: 0; }
   }
 </style>
