@@ -1,0 +1,30 @@
+---
+// PLACEHOLDER PAGE. The structure is real; the prose is not. Every paragraph
+// wrapped in [brackets] is a prompt to be replaced with the real thing — the
+// page is deliberately obvious about being unfinished rather than filled with
+// invented biography.
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+
+const footerLinks = [
+  { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
+  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+  { href: 'https://github.com/bmohan01/Taxer', label: 'Taxer' },
+];
+
+const placeholder = 'font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent); font-style: italic;';
+---
+<Base
+  title="About — Bhargav Mohanty"
+  current="about"
+  githubHref="https://github.com/bmohan01"
+  footerLinks={footerLinks}
+>
+  <section style="padding: 96px 0 72px;">
+    <Eyebrow>About</Eyebrow>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">A bit more about me</h1>
+    <p style={placeholder}>
+      [Two or three sentences: who you are, what you work on, and what you care about enough to keep building after hours. This is the paragraph people actually read — the rest of the page is optional.]
+    </p>
+  </section>
+</Base>
