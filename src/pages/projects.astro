@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PluginCard from '../components/PluginCard.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
+
+const footerLinks = [
+  { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
+  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+  { href: 'https://github.com/bmohan01/Taxer', label: 'Taxer' },
+];
+---
+<Base
+  title="Projects"
+  current="projects"
+  githubHref="https://github.com/bmohan01"
+  footerLinks={footerLinks}
+>
+  <section style="padding: 96px 0 48px;">
+    <Eyebrow>Projects</Eyebrow>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">Everything built here, in one place</h1>
+    <p style="font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: var(--color-text);">
+      Two lines of work. A pair of tmux plugins that make agent panes resumable and attention-aware, and Taxer, a Claude Code plugin that turns the agent into a local, privacy-first US tax preparer. All of it open source and installable in a couple of lines.
+    </p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0 80px;">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+      <PluginCard
+        href={`${base}/tmux`}
+        kicker="two tmux plugins"
+        title="Panes that remember, and panes that ask for you"
+        body="tmux-ai-sessions-restore brings your Claude Code and Kiro CLI conversations back after a reboot. tmux-nudge blinks the one pane that needs a human next."
+      />
+      <PluginCard
+        href={`${base}/taxer`}
+        kicker="Claude Code plugin"
+        title="An AI tax preparer that never sees your SSN"
+        body="US federal returns plus first-pass state estimates for CA, NY, NJ, MA and IL. Claude handles the conversation, a deterministic Python engine does every dollar of math, and your PII stays on the device."
+      />
+    </div>
+  </section>
+</Base>

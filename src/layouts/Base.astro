@@ -5,7 +5,8 @@
 //
 // Props:
 //   title       — <title> text
-//   current     — active nav link: 'home' | 'sessions' | 'nudge'
+//   current     — slash-separated path of the active nav link, e.g. 'home',
+//                 'projects/tmux', 'projects/tmux/nudge' (see Nav.astro)
 //   githubHref  — GitHub button target in the nav
 //   footerLinks — array of { href, label } for the footer
 import Nav from '../components/Nav.astro';
