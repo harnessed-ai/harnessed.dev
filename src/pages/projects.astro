@@ -9,6 +9,7 @@ const footerLinks = [
   { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
   { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
   { href: 'https://github.com/bmohan01/Taxer', label: 'Taxer' },
+  { href: 'https://github.com/bmohan01/PrepGraph', label: 'PrepGraph' },
 ];
 ---
 <Base
@@ -21,14 +22,16 @@ const footerLinks = [
     <Eyebrow>Projects</Eyebrow>
     <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">Everything built here, in one place</h1>
     <p style="font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: var(--color-text);">
-      Two lines of work. A pair of tmux plugins that make agent panes resumable and attention-aware, and Taxer, a Claude Code plugin that turns the agent into a local, privacy-first US tax preparer. All of it open source and installable in a couple of lines.
+      Three lines of work. A pair of tmux plugins that make agent panes resumable and attention-aware; Taxer, a Claude Code plugin that turns the agent into a local, privacy-first US tax preparer; and PrepGraph, spaced-repetition interview prep that runs over a folder of your own markdown. All of it open source, local-first, and installable in a couple of lines.
     </p>
   </section>
 
   <hr class="hr" />
 
   <section style="padding: 48px 0 80px;">
-    <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px;">
+    <!-- auto-fit rather than a fixed count: three cards want three columns on a
+         wide screen and reflow on their own as the viewport narrows. -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
       <PluginCard
         href={`${base}/tmux`}
         kicker="two tmux plugins"
@@ -40,6 +43,12 @@ const footerLinks = [
         kicker="Claude Code plugin"
         title="An AI tax preparer that never sees your SSN"
         body="US federal returns plus first-pass state estimates for CA, NY, NJ, MA and IL. Claude handles the conversation, a deterministic Python engine does every dollar of math, and your PII stays on the device."
+      />
+      <PluginCard
+        href={`${base}/prepgraph`}
+        kicker="local-first web app"
+        title="Spaced repetition over a folder of your own markdown"
+        body="Interview prep that separates what decayed from what you never started, and shows the interval each grade buys before you answer. Your notes stay plain .md files on your disk."
       />
     </div>
   </section>

@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import CopyButton from '../components/CopyButton.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
+
+const installCmd = `git clone https://github.com/bmohan01/PrepGraph.git
+cd PrepGraph && npm install && npm run dev`;
+
+const footerLinks = [
+  { href: 'https://github.com/bmohan01/PrepGraph', label: 'PrepGraph' },
+];
+---
+<Base
+  title="PrepGraph"
+  current="projects/prepgraph"
+  githubHref="https://github.com/bmohan01/PrepGraph"
+  footerLinks={footerLinks}
+>
+  <section style="padding: 96px 0 48px;">
+    <Eyebrow>PrepGraph</Eyebrow>
+    <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">Spaced repetition over a folder of your own markdown</h1>
+    <p style="font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: var(--color-text);">
+      PrepGraph is an interview prep tracker built on spaced repetition, running over plain markdown on your disk — one <code style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em;">.md</code> file per topic with YAML frontmatter, openable in Obsidian or any editor. There is no backend, no account and no sync service. It reads the folder you point it at, schedules what you should review, and gets out of the way.
+    </p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
+      <a href="https://github.com/bmohan01/PrepGraph" target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">View on GitHub ↗</a>
+      <a href="#install" class="btn btn-secondary" style="white-space: nowrap;">Install</a>
+    </div>
+    <figure style="margin: 44px 0 0;">
+      <img src={`${base}/prepgraph-today.png`} alt="PrepGraph's Today screen: ten items decayed past recall, a decay horizon plotting every scheduled item on one time axis, and a queue sorted by how late each item is" loading="lazy" width="1428" height="770" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+      <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Today — opens on a decision, not a file browser. <kbd style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Enter</kbd> starts the session.</figcaption>
+    </figure>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 14px;">Why</h2>
+    <p style="font-size: 15.5px; line-height: 1.65; max-width: 64ch; margin: 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
+      A vault imported from years of notes is mostly untouched, and calling two hundred untouched notes <em>overdue</em> buries the eight that genuinely decayed. PrepGraph keeps those apart on every screen, shows you the interval each grade buys before you answer rather than after, and withholds a chart it can't support instead of stretching one cluster across an axis to look busy. The material is long-form — systems, algorithms and stories you have to be able to <em>talk</em> through — so the review is recall, reveal, self-grade, over files you already own.
+    </p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 24px;">What you get</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Your notes stay files</p>
+        <p class="card-body">Existing markdown is read in place — nothing is copied, moved or uploaded. Every file it writes is human-readable and diffable, so the folder can live in Git or open as an Obsidian vault.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Overdue ≠ never started</p>
+        <p class="card-body">Every screen splits the vault three ways — decayed, scheduled, never started — and never conflates them. An imported note can carry a schedule it never earned.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Each grade shows its interval</p>
+        <p class="card-body">The scheduler computes all four candidates before you answer, so Again / Hard / Good / Easy each carry the days they buy. A blind four-way guess becomes an informed choice.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">SM-2 or FSRS</p>
+        <p class="card-body">Both are real implementations behind one interface, so the choice affects every grade path rather than a badge. Undo restores an item exactly — interval, ease, next date and history.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">Keyboard-first review</p>
+        <p class="card-body">Sidebar, breadcrumb and search step aside for the review route. Space reveals, 1–4 grade, ⌘Z undoes, ⌘K searches from anywhere, ⌘E toggles edit and preview.</p>
+      </div>
+      <div class="card elev-sm">
+        <p class="card-kicker" style="margin: 0;">A table, not a wall of cards</p>
+        <p class="card-body">Rows are 40px and windowed — a 125-item category keeps about sixteen of them in the DOM. Three densities, sortable columns, destructive actions behind a hover menu.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 10px;">Where your prep lives</h2>
+    <p style="font-size: 15px; line-height: 1.65; max-width: 62ch; margin: 0 0 24px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">On first run you point PrepGraph at a folder. It reads what's already there and writes alongside it — markdown for the notes, JSON for the schedule. Nothing leaves the machine.</p>
+    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 18px 20px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.7; color: var(--color-text);">your-vault/
+├── data/
+│   ├── study-items.json      # the schedule + metadata index
+│   ├── groups.json
+│   └── review-sessions.json
+├── images/                   # uploaded attachments
+└── *.md                      # one file per topic, YAML frontmatter</pre>
+    <p style="font-size: 15px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Export writes the whole vault back out as a ZIP of markdown plus a JSON copy of the schedule — it opens directly as an Obsidian vault, which is the point: leaving costs you nothing.</p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 24px;">A look inside</h2>
+    <div style="display: grid; gap: 32px;">
+      <figure style="margin: 0;">
+        <img src={`${base}/prepgraph-review.png`} alt="PrepGraph's Review screen: chromeless, the note rendered as markdown with a syntax-highlighted code block, and four grade buttons each showing the interval it buys" loading="lazy" width="1428" height="770" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+        <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Review — recall first, Space to check, 1–4 to grade. Each button carries the interval it buys; ⌘Z puts the item back exactly as it was.</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src={`${base}/prepgraph-library.png`} alt="PrepGraph's library as a dense sortable table of 125 coding questions, grouped into overdue and scheduled sections with tags, rep counts and days late" loading="lazy" width="1428" height="770" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+        <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Library — a windowed table grouped by review state, at three densities, with sortable columns.</figcaption>
+      </figure>
+      <figure style="margin: 0;">
+        <img src={`${base}/prepgraph-readiness.png`} alt="PrepGraph's Readiness screen: a score out of 100 with a plain-language caveat, coverage bars per category, a 14-day workload chart and a weakest-ground list" loading="lazy" width="1428" height="770" style="display: block; width: 100%; height: auto; border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-md);" />
+        <figcaption style="margin-top: 12px; font-size: 13px; color: var(--color-text); opacity: 0.6;">Readiness — coverage means <em>recalled at least once</em>, not items created, and the score says so out loud. The workload chart labels its last bar as a catch-all rather than passing it off as a single day.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <hr class="hr" />
+
+  <section id="install" style="padding: 48px 0 80px;">
+    <Eyebrow>Install</Eyebrow>
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 18px;">Clone and run</h2>
+    <p style="font-size: 15px; line-height: 1.65; margin: 0 0 16px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 62ch;">PrepGraph is a local React app with no server behind it. Run the dev server and open <code style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em;">localhost:5173</code>; on first launch it asks for a folder.</p>
+    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: var(--color-text); max-width: 560px;">git clone https://github.com/bmohan01/PrepGraph.git
+cd PrepGraph &amp;&amp; npm install &amp;&amp; npm run dev</pre>
+    <CopyButton command={installCmd} />
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 32px;">
+      <div class="card">
+        <p class="card-kicker">Firefox or Safari?</p>
+        <p class="card-body">Those browsers have no File System Access API, so the vault lives in browser storage instead — same app, same features. Export regularly from Settings → Storage, since browser storage is cleared along with site data.</p>
+      </div>
+      <div class="card">
+        <p class="card-kicker">Not a flashcard app</p>
+        <p class="card-body">Anki is better at flashcards, and PrepGraph doesn't try: no cloze, no image occlusion, no import, no sync. It's built for long-form notes you have to be able to talk through.</p>
+      </div>
+    </div>
+  </section>
+</Base>

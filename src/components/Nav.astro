@@ -5,7 +5,7 @@
 // Props:
 //   current    — slash-separated path of the active link, matched against the
 //                `key` at each level: 'home', 'projects/tmux',
-//                'projects/tmux/nudge'
+//                'projects/tmux/nudge', 'projects/prepgraph'
 //   githubHref — where the GitHub button points (varies per page)
 import NavLink from './NavLink.astro';
 const { current, githubHref } = Astro.props;
@@ -30,6 +30,7 @@ const links = [
         ],
       },
       { href: `${base}/taxer`, label: 'TAXER', key: 'taxer' },
+      { href: `${base}/prepgraph`, label: 'PREPGRAPH', key: 'prepgraph' },
     ],
   },
   { href: `${base}/about`, label: 'About', key: 'about' },
