@@ -6,21 +6,21 @@ import PluginCard from '../components/PluginCard.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 
 const footerLinks = [
-  { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
-  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+  { href: 'https://github.com/harnessed-ai/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
+  { href: 'https://github.com/harnessed-ai/tmux-nudge', label: 'tmux-nudge' },
 ];
 ---
 <Base
   title="tmux plugins"
   current="projects/tmux"
-  githubHref="https://github.com/bmohan01"
+  githubHref="https://github.com/harnessed-ai"
   footerLinks={footerLinks}
 >
   <section style="padding: 96px 0 48px;">
     <Eyebrow>tmux plugins</Eyebrow>
     <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(36px, 4.6vw, 60px); line-height: 1.1; letter-spacing: -0.015em; margin: 0; margin-left: -0.05em; max-width: 20ch;">Panes that remember, and panes that get your attention</h1>
     <p style="font-size: 17px; line-height: 1.65; max-width: 62ch; margin: 24px 0 0; color: var(--color-text);">
-      Two small tmux plugins for engineers who run AI coding agents in panes. One brings your Claude Code and Kiro CLI conversations back after a reboot — not just the layout. The other blinks the one pane that needs a human next, whether that's an agent, a build, or a script. Both install through TPM.
+      Two small tmux plugins for engineers who run AI coding agents in panes. One brings your AI coding conversations — Claude Code, Codex, Gemini CLI, Kiro or OpenCode — back after a reboot, not just the layout. The other blinks the one pane that needs a human next, whether that's an agent, a build, or a script. Both install through TPM.
     </p>
   </section>
 
@@ -32,7 +32,7 @@ const footerLinks = [
         href={`${base}/sessions-restore`}
         kicker="tmux-ai-sessions-restore"
         title="Resume the conversation, not just the layout"
-        body="Makes claude and kiro-cli chat relaunch resumed, in the same pane, where you left off — after tmux-resurrect brings the pane back."
+        body="Makes claude, codex, gemini, kiro-cli and opencode relaunch resumed, in the same pane, where you left off — after tmux-resurrect brings the pane back."
       />
       <PluginCard
         href={`${base}/nudge`}

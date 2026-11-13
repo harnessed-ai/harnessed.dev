@@ -6,8 +6,8 @@ import PluginCard from '../components/PluginCard.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 
 const footerLinks = [
-  { href: 'https://github.com/bmohan01/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
-  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+  { href: 'https://github.com/harnessed-ai/tmux-ai-sessions-restore', label: 'tmux-ai-sessions-restore' },
+  { href: 'https://github.com/harnessed-ai/tmux-nudge', label: 'tmux-nudge' },
   { href: 'https://github.com/bmohan01/Taxer', label: 'Taxer' },
   { href: 'https://github.com/bmohan01/PrepGraph', label: 'PrepGraph' },
 ];
@@ -36,7 +36,7 @@ const footerLinks = [
         href={`${base}/tmux`}
         kicker="two tmux plugins"
         title="Panes that remember, and panes that ask for you"
-        body="tmux-ai-sessions-restore brings your Claude Code and Kiro CLI conversations back after a reboot. tmux-nudge blinks the one pane that needs a human next."
+        body="tmux-ai-sessions-restore brings your Claude Code, Codex, Gemini CLI, Kiro and OpenCode conversations back after a reboot. tmux-nudge blinks the one pane that needs a human next."
       />
       <PluginCard
         href={`${base}/taxer`}

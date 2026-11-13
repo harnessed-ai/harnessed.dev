@@ -5,16 +5,16 @@ import CopyButton from '../components/CopyButton.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // e.g. "/harnessed.dev"
 
-const installCmd = "set -g @plugin 'bmohan01/tmux-nudge'";
+const installCmd = "set -g @plugin 'harnessed-ai/tmux-nudge'";
 
 const footerLinks = [
-  { href: 'https://github.com/bmohan01/tmux-nudge', label: 'tmux-nudge' },
+  { href: 'https://github.com/harnessed-ai/tmux-nudge', label: 'tmux-nudge' },
 ];
 ---
 <Base
   title="tmux-nudge"
   current="projects/tmux/nudge"
-  githubHref="https://github.com/bmohan01/tmux-nudge"
+  githubHref="https://github.com/harnessed-ai/tmux-nudge"
   footerLinks={footerLinks}
 >
   <section style="padding: 96px 0 48px;">
@@ -24,7 +24,7 @@ const footerLinks = [
       A tmux plugin that nudges you when a pane needs a human — by blinking a label on the pane and its entry in the status bar. Anything can nudge you: a finished shell script, an idle build, or an AI coding agent waiting for your response.
     </p>
     <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px;">
-      <a href="https://github.com/bmohan01/tmux-nudge" target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">View on GitHub ↗</a>
+      <a href="https://github.com/harnessed-ai/tmux-nudge" target="_blank" rel="noopener" class="btn btn-primary" style="white-space: nowrap;">View on GitHub ↗</a>
       <a href="#install" class="btn btn-secondary" style="white-space: nowrap;">Install</a>
     </div>
     <figure style="margin: 44px 0 0;">
@@ -96,7 +96,7 @@ nudge status</pre>
     <Eyebrow>Install</Eyebrow>
     <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 20px;">TPM (recommended)</h2>
     <p style="font-size: 15px; line-height: 1.65; margin: 0 0 16px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 62ch;">Add one line and press prefix + I. On first load tmux-nudge also auto-wires the shell + Claude Code + Kiro CLI integrations for whatever you have installed.</p>
-    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text); max-width: 520px;">set -g @plugin 'bmohan01/tmux-nudge'</pre>
+    <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text); max-width: 520px;">set -g @plugin 'harnessed-ai/tmux-nudge'</pre>
     <CopyButton command={installCmd} />
 
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 32px;">
