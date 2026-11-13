@@ -50,16 +50,16 @@ const footerLinks = [
       <div class="card elev-sm">
         <div style="display: flex; align-items: center; gap: 8px;">
           <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); animation: tk-blink 1s steps(1) infinite;"></span>
-          <p class="card-kicker" style="margin: 0;">AI harness hook</p>
+          <p class="card-kicker" style="margin: 0;">AI agents</p>
         </div>
-        <p class="card-body">nudge hook from Claude Code, Codex or Kiro CLI — precise needs-input / done / error state.</p>
+        <p class="card-body">Claude Code and Kiro CLI report through a shared agent hook: orange when an agent is waiting on you, green when it's done, red on an error. Codex and other harnesses use nudge hook.</p>
       </div>
       <div class="card elev-sm">
         <div style="display: flex; align-items: center; gap: 8px;">
           <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); animation: tk-blink 1s steps(1) infinite; animation-delay: 0.3s;"></span>
           <p class="card-kicker" style="margin: 0;">Shell completion</p>
         </div>
-        <p class="card-body">A precmd hook in zsh/bash — any long-running command nudges its pane on completion.</p>
+        <p class="card-body">A precmd hook in zsh/bash — any long-running command nudges its pane on completion, and is published in the shared agent state too.</p>
       </div>
       <div class="card elev-sm">
         <div style="display: flex; align-items: center; gap: 8px;">
@@ -83,10 +83,11 @@ const footerLinks = [
   <section style="padding: 48px 0;">
     <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 18px;">CLI</h2>
     <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: var(--color-text); max-width: 620px;">nudge init                      # set up the renderer; saves your config
-nudge install                   # wire shell + Claude + Kiro integrations
+nudge install                   # wire the shell + the shared agent hook (Claude, Kiro)
 nudge uninstall                 # fully reverse init; restores your config
 nudge on  [-t pane] [-s state]  # state: needs-input | done | error
 nudge off [-t pane]
+nudge sync -t pane              # redraw a pane from the shared agent state
 nudge status</pre>
   </section>
 
@@ -95,18 +96,18 @@ nudge status</pre>
   <section id="install" style="padding: 48px 0 80px;">
     <Eyebrow>Install</Eyebrow>
     <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 20px;">TPM (recommended)</h2>
-    <p style="font-size: 15px; line-height: 1.65; margin: 0 0 16px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 62ch;">Add one line and press prefix + I. On first load tmux-nudge also auto-wires the shell + Claude Code + Kiro CLI integrations for whatever you have installed.</p>
+    <p style="font-size: 15px; line-height: 1.65; margin: 0 0 16px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 62ch;">Add one line and press prefix + I. On first load tmux-nudge also wires the shell integration and the shared agent hook for Claude Code and Kiro CLI, for whatever you have installed.</p>
     <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; color: var(--color-text); max-width: 520px;">set -g @plugin 'harnessed-ai/tmux-nudge'</pre>
     <CopyButton command={installCmd} />
 
     <div style="display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 32px;">
       <div class="card">
         <p class="card-kicker">Config</p>
-        <p class="card-body">Colours, labels, blink interval and clear mode are all tmux options — set them before tmux-nudge loads. Any option can be overridden per-invocation with a matching NUDGE_* env var.</p>
+        <p class="card-body">Colours, labels and blink interval are tmux options — set them before tmux-nudge loads; any can be overridden per-invocation with a matching NUDGE_* env var. When a pane counts as seen (@agent-seen-on: focus or prompt) is shared with the other plugins.</p>
       </div>
       <div class="card">
-        <p class="card-kicker">Any harness</p>
-        <p class="card-body">Adding a harness means pointing its event config at "nudge hook &lt;state&gt;" — no new code. Config generators print ready-to-paste snippets for Claude, Codex and Kiro.</p>
+        <p class="card-kicker">One hook, shared</p>
+        <p class="card-body">Claude Code and Kiro report through one agent hook that the harnessed-ai plugins share, so each agent event runs once however many of them you install. Any other harness points its event config at "nudge hook &lt;state&gt;" — no new code.</p>
       </div>
     </div>
   </section>
