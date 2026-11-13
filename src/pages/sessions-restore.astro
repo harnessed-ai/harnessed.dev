@@ -16,8 +16,8 @@ const code = 'font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monosp
 
 // one row per CLI in the plugin's scripts/tools.tsv
 const clis = [
-  { name: 'Claude Code', restore: 'claude --resume <id>', hook: 'UserPromptSubmit', where: '~/.claude/settings.json' },
-  { name: 'Kiro CLI', restore: 'kiro-cli chat --resume-id <id>', hook: 'userPromptSubmit', where: '~/.kiro/agents/<default agent>.json' },
+  { name: 'Claude Code', restore: 'claude --resume <id>', hook: 'the shared agent hook', where: '~/.claude/settings.json' },
+  { name: 'Kiro CLI', restore: 'kiro-cli chat --resume-id <id>', hook: 'the shared agent hook', where: '~/.kiro/agents/<default agent>.json' },
   { name: 'OpenCode', restore: 'opencode --session <id>', hook: 'a small plugin', where: '~/.config/opencode/plugins/' },
   { name: 'OpenAI Codex CLI', restore: 'codex resume <id>', hook: 'UserPromptSubmit', where: '~/.codex/hooks.json', note: 'approve it once in /hooks' },
   { name: 'Gemini CLI', restore: 'gemini --resume <id>', hook: 'BeforeAgent', where: '~/.gemini/settings.json' },
@@ -81,7 +81,7 @@ const footerLinks = [
       <p style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; color: var(--color-accent); margin: 0; font-feature-settings: 'tnum' 1;">01</p>
       <div>
         <h3 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px; margin: 0 0 8px;">Capture</h3>
-        <p style="font-size: 15.5px; line-height: 1.65; margin: 0; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Each tool's own prompt hook (or, for OpenCode, a small plugin) runs inside the pane, so it knows $TMUX_PANE. On every prompt it stamps the live session id onto that pane as tmux pane-options — ephemeral, gone when the pane closes — so a /clear or /resume is picked up on the next prompt.</p>
+        <p style="font-size: 15.5px; line-height: 1.65; margin: 0; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Each tool's own prompt hook (or, for OpenCode, a small plugin) runs inside the pane, so it knows $TMUX_PANE. On every prompt it stamps the live session id onto that pane as tmux pane-options — ephemeral, gone when the pane closes — so a /clear or /resume is picked up on the next prompt. Claude Code and Kiro report through the agent hook the harnessed-ai plugins share, so with tmux-nudge installed too, each event still runs one hook.</p>
       </div>
     </div>
     <div style="display: grid; grid-template-columns: minmax(64px,120px) minmax(0,1fr); gap: 28px 48px; align-items: baseline; padding: 22px 0; border-top: 1px solid color-mix(in srgb, var(--color-neutral-700) 60%, transparent);">
