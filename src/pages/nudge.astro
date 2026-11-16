@@ -81,6 +81,21 @@ const footerLinks = [
   <hr class="hr" />
 
   <section style="padding: 48px 0;">
+    <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 14px;">Other sessions</h2>
+    <p style="font-size: 15.5px; line-height: 1.65; max-width: 64ch; margin: 0 0 20px; color: color-mix(in srgb, var(--color-text) 78%, transparent);">
+      The blink lives in the session you're looking at. When something in another tmux session needs you, a chip appears in front of your status-right: the most urgent one elsewhere, coloured by its state, plus how many more are waiting.
+    </p>
+    <div style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 14px 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--color-text);">
+      <span>1:zsh&nbsp;&nbsp;2:claude</span>
+      <span style="margin-left: auto;"><span style="color: #e0a940;">●</span> infra:2 build <span style="opacity: 0.55;">+1</span></span>
+      <span style="opacity: 0.55;">ghostty</span>
+    </div>
+    <p style="font-size: 14px; line-height: 1.6; margin-top: 16px; color: color-mix(in srgb, var(--color-text) 62%, transparent); max-width: 64ch;"><strong style="font-weight: 600; color: var(--color-text);">prefix + g</strong> jumps to the next pane that needs you, in any session: waiting before done, oldest first. Press it again to move on. Set @nudge-elsewhere to manual to place the chip yourself, or off to hide it; @nudge-jump-key picks another key.</p>
+  </section>
+
+  <hr class="hr" />
+
+  <section style="padding: 48px 0;">
     <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; margin: 0 0 18px;">CLI</h2>
     <pre style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 16px 18px; margin: 0; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: var(--color-text); max-width: 620px;">nudge init                      # set up the renderer; saves your config
 nudge install                   # wire the shell + the shared agent hook (Claude, Codex, OpenCode, Kiro)
@@ -88,6 +103,7 @@ nudge uninstall                 # fully reverse init; restores your config
 nudge on  [-t pane] [-s state]  # state: needs-input | done | error
 nudge off [-t pane]
 nudge sync -t pane              # redraw a pane from the shared agent state
+nudge next                      # jump to the next pane that needs you (prefix + g)
 nudge status</pre>
   </section>
 
