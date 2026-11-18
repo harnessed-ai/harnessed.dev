@@ -71,11 +71,10 @@ const footerLinks = [
     </div>
 
     <div style="background: var(--color-surface); border: 1px solid var(--color-divider); border-radius: var(--radius-md); padding: 18px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-      <span style="width: 9px; height: 9px; border-radius: 50%; background: #e0a940; flex: none; animation: tk-blink 1s steps(1) infinite;"></span>
-      <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--color-text);">● tmux-nudge — needs you</span>
-      <span style="margin-left: auto; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">pane border label; the window's status-bar entry blinks too, until you look</span>
+      <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; font-weight: 600; background: #e0a940; color: #111; padding: 1px 8px; border-radius: 3px; animation: tk-blink 1s steps(1) infinite;">● waiting · fifo · Bash: npm test</span>
+      <span style="margin-left: auto; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">the pane's border label names the agent and what it waits on; the window's borders and its status-bar entry light up in the same colour, until you look</span>
     </div>
-    <p style="font-size: 14px; line-height: 1.6; margin-top: 16px; color: color-mix(in srgb, var(--color-text) 62%, transparent); max-width: 64ch;">A small daemon animates the blink and auto-clears any flagged pane the moment you view it. It starts on the first nudge and exits when none remain.</p>
+    <p style="font-size: 14px; line-height: 1.6; margin-top: 16px; color: color-mix(in srgb, var(--color-text) 62%, transparent); max-width: 64ch;">A small daemon animates the blink and auto-clears any flagged pane the moment you view it. It starts on the first nudge and exits when none remain. Windows with agents keep their label row, so panes never resize when a nudge comes and goes.</p>
   </section>
 
   <hr class="hr" />
